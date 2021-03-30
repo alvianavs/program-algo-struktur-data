@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
-int j = 0;
+
 struct simpul
 {
     char nama[25];
@@ -12,6 +12,7 @@ struct simpul *ujung;
 struct simpul *tampung;
 struct simpul *show;
 struct simpul *cari;
+int j = 0;
 
 struct simpul *alokasi_simpul()
 {
@@ -33,10 +34,10 @@ void lanjutkan()
 void simpan()
 {
     char conf;
+    printf(" + ------------------- \n");
     do
     {
         ujung = alokasi_simpul();
-
         printf(" | Nama\t: ");
         scanf("%s", &ujung->nama);
         printf(" | NRP\t: ");
@@ -60,11 +61,13 @@ void simpan()
 }
 void tampil()
 {
-    printf("\n");
     show = ujung;
+    int i = 1;
+    printf("\n #  NRP\t Nama\n");
     while (show != NULL) {
-        printf(" | [%d] %s\n", show->nrp, show->nama);
+        printf(" %d. [%d] %s\n", i, show->nrp, show->nama);
         show = show->next;
+        i++;
     }
     lanjutkan();
 }
@@ -136,6 +139,37 @@ void hapus()
     free(del);
     lanjutkan();
 }
+void simpanAfter()
+{
+    cari = ujung;
+    struct simpul *data;
+    data = alokasi_simpul();
+    char keynm[25];
+    int ketemu = 0;
+
+    printf(" | Masukkan nama yang setelahnya akan ditambah baru data\n | Input : ");
+    scanf("%s", &keynm);
+
+    printf(" + ------------------- \n");
+    printf(" | Nama\t: ");
+    scanf("%s", &data->nama);
+    printf(" | NRP\t: ");
+    scanf("%d", &data->nrp);
+
+    while (cari != NULL)
+    {
+        if (strcmp(cari->nama, keynm) == 0) {
+            ketemu = 1;
+            data->next = cari->next;
+            cari->next = data;
+        }
+        cari = cari->next;
+    }
+    if (ketemu != 1)
+        printf("\n | Data tidak ditemukan");
+    free(data);
+    lanjutkan();
+}
 int main()
 {
     int op, keluar = 0;
@@ -145,7 +179,8 @@ int main()
         printf(" | [2] Tampilkan data\n");
         printf(" | [3] Hapus data tertentu\n");
         printf(" | [4] Mencari data\n");
-        printf(" | [5] Exit\n");
+        printf(" | [5] Masukkan data setelah simpul tertentu\n");
+        printf(" | [6] Exit\n");
         printf(" | Masukkan option : ");
         scanf("%d", &op);
         switch (op)
@@ -164,6 +199,9 @@ int main()
             funcCari();
             break;
         case 5:
+            simpanAfter();
+            break;
+        case 6:
             printf("\n | Exit Program");
             keluar = 1;
             break;
