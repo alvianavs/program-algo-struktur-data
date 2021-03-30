@@ -118,20 +118,20 @@ void hapus()
     scanf("%d", &key);
 
     del = ujung;
-    while (del != NULL) {
+    while (del != NULL)
+    {
         if (del->nrp == key) {
             ketemu = 1;
+            printf("\n | Anda menghapus NRP %d dengan nama %s", del->nrp, del->nama);
+            if (del == ujung)
+                ujung = ujung->next;
+            else
+                sbl->next = del->next;
         }
         sbl = del;
         del = del->next;
     }
-    if (ketemu == 1) {
-        printf("\n | Anda menghapus NRP %d dengan nama %s", del->nrp, del->nama);
-        if (del == ujung)
-            ujung = ujung->next;
-        else
-            sbl->next = del->next;
-    } else
+    if (ketemu != 1)
         printf("\n | Data tidak ditemukan");
     free(del);
     lanjutkan();
