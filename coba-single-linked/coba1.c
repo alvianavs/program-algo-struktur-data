@@ -141,33 +141,63 @@ void hapus()
 }
 void simpanAfter()
 {
-    cari = ujung;
-    struct simpul *data;
-    data = alokasi_simpul();
+    struct simpul *head = ujung;
+    struct simpul *data = alokasi_simpul();
     char keynm[25];
     int ketemu = 0;
 
-    printf(" | Masukkan nama yang setelahnya akan ditambah baru data\n | Input : ");
+    printf(" | Masukkan nama yang setelahnya akan ditambah data baru\n | Input : ");
     scanf("%s", &keynm);
 
-    printf(" + ------------------- \n");
-    printf(" | Nama\t: ");
-    scanf("%s", &data->nama);
-    printf(" | NRP\t: ");
-    scanf("%d", &data->nrp);
-
-    while (cari != NULL)
+    while (head != NULL)
     {
-        if (strcmp(cari->nama, keynm) == 0) {
+        if (strcmp(head->nama, keynm) == 0) {
             ketemu = 1;
-            data->next = cari->next;
-            cari->next = data;
+            printf(" + ------------------- \n");
+            printf(" | Nama\t: ");
+            scanf("%s", &data->nama);
+            printf(" | NRP\t: ");
+            scanf("%d", &data->nrp);
+            data->next = head->next;
+            head->next = data;
         }
-        cari = cari->next;
+        head = head->next;
     }
     if (ketemu != 1)
         printf("\n | Data tidak ditemukan");
-    free(data);
+    
+    lanjutkan();
+}
+void simpanBefore()
+{
+    struct simpul *head = ujung;
+    struct simpul *data = alokasi_simpul();
+    struct simpul *stl;
+    char keynm[25];
+    int ketemu = 0;
+
+    printf(" | Masukkan nama yang sebelumnya akan ditambah data baru\n | Input : ");
+    scanf("%s", &keynm);
+
+    while (head != NULL)
+    {
+        if (strcmp(head->nama, keynm) == 0)
+        {
+            ketemu = 1;
+            printf(" + ------------------- \n");
+            printf(" | Nama\t: ");
+            scanf("%s", &data->nama);
+            printf(" | NRP\t: ");
+            scanf("%d", &data->nrp);
+            data->next = head;
+            stl->next = data;
+        }
+        stl = head;
+        head = head->next;
+    }
+    if (ketemu != 1)
+        printf("\n | Data tidak ditemukan");
+
     lanjutkan();
 }
 int main()
@@ -180,7 +210,8 @@ int main()
         printf(" | [3] Hapus data tertentu\n");
         printf(" | [4] Mencari data\n");
         printf(" | [5] Masukkan data setelah simpul tertentu\n");
-        printf(" | [6] Exit\n");
+        printf(" | [6] Masukkan data sebelum simpul tertentu\n");
+        printf(" | [7] Exit\n");
         printf(" | Masukkan option : ");
         scanf("%d", &op);
         switch (op)
@@ -202,6 +233,9 @@ int main()
             simpanAfter();
             break;
         case 6:
+            simpanBefore();
+            break;
+        case 7:
             printf("\n | Exit Program");
             keluar = 1;
             break;
