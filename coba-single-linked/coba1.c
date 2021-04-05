@@ -222,6 +222,9 @@ int main()
     int op, keluar = 0;
     while (keluar == 0)
     {
+        printf(" + --------------------------------------- +\n");
+        printf(" |           Single Linked List            |\n");
+        printf(" + --------------------------------------- +\n");
         printf(" | [1] Masukkan data\n");
         printf(" | [2] Tampilkan data\n");
         printf(" | [3] Hapus data tertentu\n");
@@ -261,7 +264,8 @@ int main()
             keluar = 1;
             break;
         default:
-            printf("\n | Option yang anda masukkan salah!\n");
+            printf("\n | Option yang anda masukkan salah!");
+            lanjutkan();
             break;
         }
     }
