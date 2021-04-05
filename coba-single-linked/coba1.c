@@ -139,6 +139,23 @@ void hapus()
     free(del);
     lanjutkan();
 }
+void simpanAkhir()
+{
+    struct simpul *baru = alokasi_simpul();
+    cari = ujung;
+    printf(" + ------------------- \n");
+    printf(" | Nama\t: ");
+    scanf("%s", &baru->nama);
+    printf(" | NRP\t: ");
+    scanf("%d", &baru->nrp);
+
+    while (cari->next != NULL)
+    {
+        cari = cari->next;
+    }
+    cari->next = baru;
+    lanjutkan();
+}
 void simpanAfter()
 {
     struct simpul *head = ujung;
@@ -209,9 +226,10 @@ int main()
         printf(" | [2] Tampilkan data\n");
         printf(" | [3] Hapus data tertentu\n");
         printf(" | [4] Mencari data\n");
-        printf(" | [5] Masukkan data setelah simpul tertentu\n");
-        printf(" | [6] Masukkan data sebelum simpul tertentu\n");
-        printf(" | [7] Exit\n");
+        printf(" | [5] Masukkan data di akhir\n");
+        printf(" | [6] Masukkan data setelah simpul tertentu\n");
+        printf(" | [7] Masukkan data sebelum simpul tertentu\n");
+        printf(" | [8] Exit\n");
         printf(" | Masukkan option : ");
         scanf("%d", &op);
         switch (op)
@@ -230,12 +248,15 @@ int main()
             funcCari();
             break;
         case 5:
-            simpanAfter();
+            simpanAkhir();
             break;
         case 6:
-            simpanBefore();
+            simpanAfter();
             break;
         case 7:
+            simpanBefore();
+            break;
+        case 8:
             printf("\n | Exit Program");
             keluar = 1;
             break;
