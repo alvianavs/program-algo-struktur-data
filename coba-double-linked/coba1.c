@@ -43,7 +43,7 @@ void simpan()
         printf(" | NRP\t: ");
         scanf("%d", &baru->nrp);    
 
-        if (j == 0)
+        if (j == 0 || head == NULL)
         {
             head = baru;
             tail = baru;
@@ -156,9 +156,15 @@ void hapus()
             {
                 printf("\n | Anda telah menghapus NRP %d dengan nama %s", del->nrp, del->nama);
                 ketemu = 1;
-                head = head->next;
-                head->before = NULL;
-                free(del);
+                if (head == tail) {
+                    head = NULL;
+                    tail = NULL;
+                    free(del);
+                } else {
+                    head = head->next;
+                    head->before = NULL;
+                    free(del);
+                }
             }
             break;
         case 2:
@@ -167,9 +173,15 @@ void hapus()
             {
                 printf("\n | Anda telah menghapus NRP %d dengan nama %s", del->nrp, del->nama);
                 ketemu = 1;
-                tail = tail->before;
-                tail->next = NULL;
-                free(del);
+                if (tail == head) {
+                    tail = NULL;
+                    head = NULL;
+                    free(del);
+                } else {
+                    tail = tail->before;
+                    tail->next = NULL;
+                    free(del);
+                }
             }
 
             break;
@@ -266,7 +278,7 @@ void simpan_sbl()
     scanf("%s", &keynm);
     while (sbl != NULL)
     {
-        if (strcmp(sbl->nama, keynm) == 0)
+        if (strcmp(sbl->nama, keynm) == 0 && sbl != head)
         {
             ketemu = 1;
             printf(" + ---------------------------------------- +\n");
@@ -281,7 +293,7 @@ void simpan_sbl()
         }
         sbl = sbl->next;
     }
-    if (ketemu != 1)
+    if (ketemu != 1) 
         printf("\n | Data tidak ditemukan");
 
     lanjutkan();
