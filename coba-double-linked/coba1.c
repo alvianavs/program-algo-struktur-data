@@ -278,7 +278,7 @@ void simpan_sbl()
     scanf("%s", &keynm);
     while (sbl != NULL)
     {
-        if (strcmp(sbl->nama, keynm) == 0 && sbl != head)
+        if (strcmp(sbl->nama, keynm) == 0)
         {
             ketemu = 1;
             printf(" + ---------------------------------------- +\n");
@@ -286,10 +286,16 @@ void simpan_sbl()
             scanf("%s", &data->nama);
             printf(" | NRP\t: ");
             scanf("%d", &data->nrp);
-            data->next = sbl;
-            data->before = sbl->before;
-            sbl->before->next = data;
-            sbl->before = data;
+            if (sbl == head) {
+                data->next = sbl;
+                sbl->before->next = data;
+                sbl->before = data;
+            } else {
+                data->next = sbl;
+                data->before = sbl->before;
+                sbl->before->next = data;
+                sbl->before = data;
+            }
         }
         sbl = sbl->next;
     }
