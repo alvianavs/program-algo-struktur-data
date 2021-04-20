@@ -219,7 +219,6 @@ void hapus()
 }
 void simpan_start()
 {
-    struct simpul *cari = head;
     struct simpul *data = alokasi_simpul();
     printf(" + ---------------------------------------- +\n");
     printf(" | Nama\t: ");
@@ -234,7 +233,6 @@ void simpan_start()
 }
 void simpan_end()
 {
-    struct simpul *cari = head;
     struct simpul *data = alokasi_simpul();
     printf(" + ---------------------------------------- +\n");
     printf(" | Nama\t: ");
@@ -242,10 +240,6 @@ void simpan_end()
     printf(" | NRP\t: ");
     scanf("%d", &data->nrp);
 
-    while (cari->next != NULL)
-    {
-        cari = cari->next;
-    }
     tail->next = data;
     data->before = tail;
     tail = data;
