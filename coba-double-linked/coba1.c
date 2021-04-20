@@ -217,6 +217,21 @@ void hapus()
         printf("\n | Data tidak ditemukan");
     lanjutkan();
 }
+void simpan_start()
+{
+    struct simpul *cari = head;
+    struct simpul *data = alokasi_simpul();
+    printf(" + ---------------------------------------- +\n");
+    printf(" | Nama\t: ");
+    scanf("%s", &data->nama);
+    printf(" | NRP\t: ");
+    scanf("%d", &data->nrp);
+
+    head->before = data;
+    data->next = head;
+    head = data;
+    lanjutkan();
+}
 void simpan_end()
 {
     struct simpul *cari = head;
@@ -250,6 +265,11 @@ void simpan_stl()
         if (strcmp(stl->nama, keynm) == 0)
         {
             ketemu = 1;
+            if (stl == tail)
+            {
+                printf("\n | Data yang anda pilih berada diujung! pilih opsi lain(7)");
+                break;
+            }
             printf(" + ---------------------------------------- +\n");
             printf(" | Nama\t: ");
             scanf("%s", &data->nama);
@@ -281,21 +301,19 @@ void simpan_sbl()
         if (strcmp(sbl->nama, keynm) == 0)
         {
             ketemu = 1;
+            if (sbl == head) {
+                printf("\n | Data yang anda pilih berada diujung! pilih opsi lain(6)");
+                break;
+            }
             printf(" + ---------------------------------------- +\n");
             printf(" | Nama\t: ");
             scanf("%s", &data->nama);
             printf(" | NRP\t: ");
             scanf("%d", &data->nrp);
-            if (sbl == head) {
-                data->next = sbl;
-                sbl->before->next = data;
-                sbl->before = data;
-            } else {
-                data->next = sbl;
-                data->before = sbl->before;
-                sbl->before->next = data;
-                sbl->before = data;
-            }
+            data->next = sbl;
+            data->before = sbl->before;
+            sbl->before->next = data;
+            sbl->before = data;
         }
         sbl = sbl->next;
     }
@@ -317,10 +335,11 @@ int main()
         printf(" | [3] Tampilkan data (LIFO)\n");
         printf(" | [4] Hapus data\n");
         printf(" | [5] Mencari data\n");
-        printf(" | [6] Masukkan data di akhir\n");
-        printf(" | [7] Masukkan data setelah simpul tertentu\n");
-        printf(" | [8] Masukkan data sebelum simpul tertentu\n");
-        printf(" | [9] Exit\n");
+        printf(" | [6] Masukkan data di awal\n");
+        printf(" | [7] Masukkan data di akhir\n");
+        printf(" | [8] Masukkan data setelah simpul tertentu\n");
+        printf(" | [9] Masukkan data sebelum simpul tertentu\n");
+        printf(" | [10] Exit\n");
         printf(" | Masukkan option : ");
         scanf("%d", &op);
         switch (op)
@@ -342,15 +361,18 @@ int main()
             cari_data();
             break;
         case 6:
-            simpan_end();
+            simpan_start();
             break;
         case 7:
-            simpan_stl();
+            simpan_end();
             break;
         case 8:
-            simpan_sbl();
+            simpan_stl();
             break;
         case 9:
+            simpan_sbl();
+            break;
+        case 10:
             printf("\n | Exit Program");
             keluar = 1;
             break;
