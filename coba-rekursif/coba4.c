@@ -20,7 +20,10 @@ int main()
     for (int i = 1; i < num; i++)
     {
         if (prima(i, (int)sqrt(i)))
+        {
+            printf("[%d] ", (int)sqrt(i));
             printf("%d ", i);
+        }
     }
 
     fflush(stdin);
